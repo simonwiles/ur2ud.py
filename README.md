@@ -17,10 +17,10 @@ characters, this program will return them in the result.  I'm currently
 of the opinion that this is preferable, but could be persuaded to change
 my mind.
 
-TODO:
- * allow IAST or ISA15919 (or either??)
- * add switches for numerals and JS's skt behaviour (?)
- * add switch for accented Roman, or just include it anyway?
+#### TODO:
+* allow IAST or ISA15919 (or either??)
+* add switches for numerals and JS's skt behaviour (?)
+* add switch for accented Roman, or just include it anyway?
 
 
 
