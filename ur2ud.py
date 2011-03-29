@@ -2,6 +2,8 @@
 #-*- coding:utf-8 -*-
 
 """
+    #### DESCRIPTION:
+
     Converts Indic text romanized according to the ISO15919 conventions into
     Devanāgarī.  Inspired in part by John Smith's `ur2ud` (available at
     http://bombay.indology.info/software/programs/index.html), and named in
@@ -27,6 +29,24 @@
     * allow IAST or ISA15919 (or either??)
     * add switches for numerals and JS's skt behaviour (?)
     * add switch for accented Roman, or just include it anyway?
+
+
+    #### USAGE:
+
+    Usable as a python package:
+
+        from ur2ud import ur2ud
+        devanagari = ur2ud(roman)
+
+    or from the command line:
+
+        Usage: ur2ud.py
+
+        Read romanized Indic text from STDIN, and write Devanāgarī to STDOUT.
+
+        Options:
+          --version   show program's version number and exit
+          -h, --help  show this help message and exit
 
 """
 
