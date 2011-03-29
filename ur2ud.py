@@ -2,35 +2,47 @@
 #-*- coding:utf-8 -*-
 
 """
+    Converts Indic text romanized according to the ISO15919 conventions into
+    Devanāgarī.  Inspired in part by John Smith's `ur2ud` (available at
+    http://bombay.indology.info/software/programs/index.html), and named in
+    recognition of that fact.
 
-   The program does not check that input is valid in terms of ISO 15919,
-   or that UTF-8 input is syntactically valid. Invalid input will cause
-   unpredictable results. Accented (Vedic) Roman input using acute and
-   grave accents over vowels will produce correct but unaccented
-   Devanagari output (the underscore notation for anudatta vowels is
-   not currently supported, since it is not clear what its Unicode
-   representation should be).
+    With valid input, ur2ud is functionally equivalent to John Smith's
+    `ur2ud -s`, and as with the original implementation:
 
+      >  The program does not check that input is valid in terms of ISO 15919,
+      >  or that UTF-8 input is syntactically valid. Invalid input will cause
+      >  unpredictable results. Accented (Vedic) Roman input using acute and
+      >  grave accents over vowels will produce correct but unaccented
+      >  Devanagari output (the underscore notation for anudatta vowels is
+      >  not currently supported, since it is not clear what its Unicode
+      >  representation should be).
 
-    attempting to be functionally equivalent to John Smith's `ur2ud -s`
+    Note that where Professor Smith's version generally drops invalid input
+    characters, this program will return them in the result.  I'm currently
+    of the opinion that this is preferable, but could be persuaded to change
+    my mind.
 
     TODO:
-    * spaces -- omitted after consonants and before avagraha (complicated?)
-      (all okay, I think)
-    * apostrophe
-        * apostrophe preceeding anusvāra ==> anusvāra + avagraha
-        * [:vowel:]\s* + apostrophe ==> [:vowel:] + avagraha
-            (natural by-product of correctly dealing with spaces?)
     * allow IAST or ISA15919 (or either??)
     * add switches for numerals and JS's skt behaviour (?)
+    * add switch for accented Roman, or just include it anyway?
 
 """
 
+__program_name__ = 'ur2ud.py'
+__version__ = '0.2'
+__author__ = 'Simon Wiles'
+__email__ = 'simonjwiles@gmail.com'
+__copyright__ = 'Copyright (c) 2011, Simon Wiles'
+__license__ = 'GPL http://www.gnu.org/licenses/gpl.txt'
+__date__ = 'March, 2011'
+__comments__ = ("Converts Indic text romanized according to the ISO15919 "
+                "conventions into Devanāgarī. Inspired in part by "
+                "John Smith's ur2ud, and named in recognition of that fact.")
+
+
 TRSL_SCHEMES = ['IAST', 'ISO15919']
-
-# h ubar: no Unicode Devanagari char
-# h ubreve: no Unicode Devanagari char
-
 
 ACCENTED_INITIAL_VOWELS = {
     u'\u00E0':              [0x0905],           # a grave
@@ -216,7 +228,7 @@ ANUSVARA = 0x0902
 
 
 def ur2ud(text):
-    """ DOCSTRING """
+    """ Convert romanized Indic text to Devanāgarī. """
 
     transliterables = CONSONANTS.keys() + COMBINING_VOWELS.keys() + ['']
     INITIAL_VOWELS.update(DIACRITICS)
@@ -229,8 +241,10 @@ def ur2ud(text):
     stop = len(text)
     i = 0
 
-    def test_char(token):
-        """ DOCSTRING """
+    def process_token(token):
+        """ Process an individual token.  Returns False if the token cannot
+            be processed.
+        """
 
         if token == ' \'' and state[0] == 1:
             state[0] = 0
@@ -241,7 +255,7 @@ def ur2ud(text):
             state[0] = 0
             return True
 
-        if token == u'\'ṁ':
+        if token == u'\'\u1E41':
             devanagari.append(
                     ''.join([unichr(int(k)) for k in [ANUSVARA, AVAGRAHA]]))
             state[0] = 0
@@ -272,7 +286,7 @@ def ur2ud(text):
 
         token = text[i:i + 2]
 
-        if test_char(token):
+        if process_token(token):
             i += 2
             continue
 
@@ -288,7 +302,7 @@ def ur2ud(text):
             state[0] = 0
             continue
 
-        if test_char(token):
+        if process_token(token):
             i += 1
             continue
 
@@ -305,6 +319,21 @@ def ur2ud(text):
     return ''.join(devanagari)
 
 
-if __name__ == '__main__':
+def main():
+    """ Executed ur2ud.py as a command-line tool. """
+    import optparse
     import sys
+
+    parser = optparse.OptionParser(
+        prog=__program_name__, version=__version__,
+        usage='%prog',
+        description=u'Read romanized Indic text from STDIN, ' \
+                        u'and write Devanāgarī to STDOUT.')
+
+    options = parser.parse_args()[0]
+
     sys.stdout.write(ur2ud(sys.stdin.read().decode('utf-8')).encode('utf-8'))
+
+
+if __name__ == '__main__':
+    main()
