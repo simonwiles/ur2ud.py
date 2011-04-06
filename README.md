@@ -18,8 +18,13 @@ characters, this program will return them in the result.  I'm currently
 of the opinion that this is preferable, but could be persuaded to change
 my mind.
 
+#### ADDITIONAL FUNCTIONALITY:
+
+The program accepts a parameter (`iast`) which instructs it to expect input
+romanized according to IAST(
+[International Alphabet of Sanskrit Transliteration](http://en.wikipedia.org/wiki/IAST)) instead of [ISO15919](http://en.wikipedia.org/wiki/ISO_15919).  The most important differences are that IAST uses 'ṃ' instead of 'ṁ' for the _anusvāra_, and 'ṛ' and 'ṝ' instead of 'r̥' and 'r̥̄' for the short and long retroflex (_mūrḍhanya_) vowels respectively.
+
 #### TODO:
-* allow IAST or ISA15919 (or either??)
 * add switches for numerals and JS's skt behaviour (?)
 * add switch for accented Roman, or just include it anyway?
 
@@ -29,7 +34,7 @@ my mind.
 Usable as a python package:
 
     from ur2ud import ur2ud
-    devanagari = ur2ud(roman)
+    devanagari = ur2ud(roman, iast=True)
 
 or from the command line:
 
@@ -40,3 +45,5 @@ or from the command line:
     Options:
       --version   show program's version number and exit
       -h, --help  show this help message and exit
+      -i, --iast  Expect IAST input (instead of ISO15919)
+
