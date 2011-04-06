@@ -247,8 +247,39 @@ AVAGRAHA = 0x093D
 ANUSVARA = 0x0902
 
 
-def ur2ud(text):
+def use_iast():
+    """ Reconfigure the transliteration dictionaries to expect IAST-style
+        transliteration instead of ISO15919-style.
+    """
+
+    DIACRITICS[u'\u1e43'] = [ANUSVARA]
+    del CONSONANTS[u'\u1E5B']
+    del CONSONANTS[u'\u1E5Bh']
+
+    INITIAL_VOWELS.update({
+        u'\u1e5b':             [0x090B],           # r udot
+        u'\u1e5b\u0304':       [0x0960],           # r udotmac
+        u'\u1e5b\u0300':       [0x090B],           # r udotgrv
+        u'\u1e5b\u0301':       [0x090B],           # r udotac
+        u'\u1e5b\u0304\u0300': [0x0960],           # r udotmacgrv
+        u'\u1e5b\u0304\u0301': [0x0960],           # r udotmacac
+    })
+
+    COMBINING_VOWELS.update({
+        u'\u1e5b':             [0x0943],           # r udot
+        u'\u1e5b\u0304':       [0x0944],           # r udotmac
+        u'\u1e5b\u0300':       [0x0943],           # r udotgrv
+        u'\u1e5b\u0301':       [0x0943],           # r udotac
+        u'\u1e5b\u0304\u0300': [0x0944],           # r udotmacgrv
+        u'\u1e5b\u0304\u0301': [0x0944],           # r udotmacac
+    })
+
+
+def ur2ud(text, iast=False):
     """ Convert romanized Indic text to Devanāgarī. """
+
+    if iast:
+        use_iast()
 
     transliterables = CONSONANTS.keys() + COMBINING_VOWELS.keys() + ['']
     INITIAL_VOWELS.update(DIACRITICS)
@@ -350,9 +381,13 @@ def main():
         description=u'Read romanized Indic text from STDIN, ' \
                         u'and write Devanāgarī to STDOUT.')
 
+    parser.add_option('-i', '--iast', dest='iast', action='store_true',
+                        help="Expect IAST input (instead of ISO15919)")
+
     options = parser.parse_args()[0]
 
-    sys.stdout.write(ur2ud(sys.stdin.read().decode('utf-8')).encode('utf-8'))
+    sys.stdout.write(
+        ur2ud(sys.stdin.read().decode('utf-8'), options.iast).encode('utf-8'))
 
 
 if __name__ == '__main__':
