@@ -1,3 +1,8 @@
+## ur2ud.py
+
+The most recent version of this program is available at
+https://github.com/simonwiles/ur2ud.py/
+
 #### DESCRIPTION:
 
 Converts Indic text romanized according to the ISO15919 conventions into Devanāgarī.  Inspired in part by John Smith's `ur2ud` (available [here](http://bombay.indology.info/software/programs/index.html)), and named in recognition of that fact.
