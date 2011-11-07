@@ -30,6 +30,8 @@ romanized according to IAST(
 [International Alphabet of Sanskrit Transliteration](http://en.wikipedia.org/wiki/IAST)) instead of [ISO15919](http://en.wikipedia.org/wiki/ISO_15919).  The most important differences are that IAST uses 'ṃ' instead of 'ṁ' for the _anusvāra_, and 'ṛ' and 'ṝ' instead of 'r̥' and 'r̥̄' for the short and long retroflex (_mūrḍhanya_) vowels respectively.
 
 #### TODO:
+* convert input to a standard Unicode Normalization form (NFD?)
+    -- need to convert the transliteration tables!
 * add switches for numerals and JS's skt behaviour (?)
 * add switch for accented Roman, or just include it anyway?
 

@@ -42,6 +42,8 @@ differences are that IAST uses 'ṃ' instead of 'ṁ' for the _anusvāra_, and
 (_mūrḍhanya_) vowels respectively.
 
 #### TODO:
+* convert input to a standard Unicode Normalization form (NFD?)
+    -- need to convert the transliteration tables!
 * add switches for numerals and JS's skt behaviour (?)
 * add switch for accented Roman, or just include it anyway?
 
@@ -67,7 +69,7 @@ or from the command line:
 """
 
 __program_name__ = 'ur2ud.py'
-__version__ = '0.2'
+__version__ = '0.3'
 __author__ = 'Simon Wiles'
 __email__ = 'simonjwiles@gmail.com'
 __copyright__ = 'Copyright (c) 2011, Simon Wiles'
@@ -194,7 +196,7 @@ INITIAL_VOWELS = {
 DIACRITICS = {
     u'\u1E41':              [0x0902],        # m odot (anusvāra)
     u'\u1E25':              [0x0903],        # h udot (visarga)
-    u'm\u0310':             [0x0901],        # m cand (candrabhindu/anunāsika)
+    u'm\u0310':             [0x0901],        # m cand (candrabindu/anunāsika)
 }
 
 CONSONANTS = {
@@ -270,25 +272,53 @@ def use_iast():
     """
 
     DIACRITICS[u'\u1e43'] = [ANUSVARA]
+
     del CONSONANTS[u'\u1E5B']
     del CONSONANTS[u'\u1E5Bh']
+    del CONSONANTS[u'\u1E37']
 
     INITIAL_VOWELS.update({
         u'\u1e5b':             [0x090B],           # r udot
         u'\u1e5b\u0304':       [0x0960],           # r udotmac
+        u'\u1e5d':             [0x0960],           # r udotmac
         u'\u1e5b\u0300':       [0x090B],           # r udotgrv
         u'\u1e5b\u0301':       [0x090B],           # r udotac
         u'\u1e5b\u0304\u0300': [0x0960],           # r udotmacgrv
+        u'\u1e5d\u0300':       [0x0960],           # r udotmacgrv
         u'\u1e5b\u0304\u0301': [0x0960],           # r udotmacac
+        u'\u1e5d\u0301':       [0x0960],           # r udotmacac
+
+        u'\u1e37':             [0x090C],           # l udot
+        u'\u1e37\u0304':       [0x0961],           # l udotmac
+        u'\u1e39':             [0x0961],           # l udotmac
+        u'\u1e37\u0300':       [0x090C],           # l udotgrv
+        u'\u1e37\u0301':       [0x090C],           # l udotac
+        u'\u1e37\u0304\u0300': [0x0961],           # l udotmacgrv
+        u'\u1e39\u0300':       [0x0961],           # l udotmacgrv
+        u'\u1e37\u0304\u0301': [0x0961],           # l udotmacac
+        u'\u1e39\u0301':       [0x0961],           # l udotmacac
     })
 
     COMBINING_VOWELS.update({
         u'\u1e5b':             [0x0943],           # r udot
         u'\u1e5b\u0304':       [0x0944],           # r udotmac
+        u'\u1e5d':             [0x0944],           # r udotmac
         u'\u1e5b\u0300':       [0x0943],           # r udotgrv
         u'\u1e5b\u0301':       [0x0943],           # r udotac
         u'\u1e5b\u0304\u0300': [0x0944],           # r udotmacgrv
+        u'\u1e5d\u0300':       [0x0944],           # r udotmacgrv
         u'\u1e5b\u0304\u0301': [0x0944],           # r udotmacac
+        u'\u1e5d\u0301':       [0x0944],           # r udotmacac
+
+        u'\u1e37':             [0x0962],           # l udot
+        u'\u1e37\u0304':       [0x0963],           # l udotmac
+        u'\u1e39':             [0x0963],           # l udotmac
+        u'\u1e37\u0300':       [0x0962],           # l udotgrv
+        u'\u1e37\u0301':       [0x0962],           # l udotac
+        u'\u1e37\u0304\u0300': [0x0963],           # l udotmacgrv
+        u'\u1e39\u0300':       [0x0963],           # l udotmacgrv
+        u'\u1e37\u0304\u0301': [0x0963],           # l udotmacac
+        u'\u1e39\u0301':       [0x0963],           # l udotmacac
     })
 
 
