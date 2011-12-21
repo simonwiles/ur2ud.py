@@ -5,7 +5,10 @@ https://github.com/simonwiles/ur2ud.py/
 
 #### DESCRIPTION:
 
-Converts Indic text romanized according to the ISO15919 conventions into Devanāgarī.  Inspired in part by John Smith's `ur2ud` (available [here](http://bombay.indology.info/software/programs/index.html)), and named in recognition of that fact.
+Converts Indic text romanized according to the ISO15919 conventions into
+Devanāgarī.  Inspired in part by John Smith's `ur2ud` (available
+[here](http://bombay.indology.info/software/programs/index.html)), and named
+in recognition of that fact.
 
 With valid input, ur2ud is functionally equivalent to John Smith's
 `ur2ud -s`, and as with the original implementation:
@@ -20,14 +23,17 @@ With valid input, ur2ud is functionally equivalent to John Smith's
 
 Note that where Professor Smith's version generally drops invalid input
 characters, this program will return them in the result.  I'm currently
-of the opinion that this is preferable, but could be persuaded to change
-my mind.
+of the opinion that this is preferable.
 
 #### ADDITIONAL FUNCTIONALITY:
 
 The program accepts a parameter (`iast`) which instructs it to expect input
-romanized according to IAST(
-[International Alphabet of Sanskrit Transliteration](http://en.wikipedia.org/wiki/IAST)) instead of [ISO15919](http://en.wikipedia.org/wiki/ISO_15919).  The most important differences are that IAST uses 'ṃ' instead of 'ṁ' for the _anusvāra_, and 'ṛ' and 'ṝ' instead of 'r̥' and 'r̥̄' for the short and long retroflex (_mūrḍhanya_) vowels respectively.
+romanized according to IAST( [International Alphabet of Sanskrit
+Transliteration](http://en.wikipedia.org/wiki/IAST)) instead of
+[ISO15919](http://en.wikipedia.org/wiki/ISO_15919).  The most important
+differences are that IAST uses 'ṃ' instead of 'ṁ' for the _anusvāra_, and
+'ṛ' and 'ṝ' instead of 'r̥' and 'r̥̄' for the short and long retroflex
+(_mūrḍhanya_) vowels respectively.
 
 #### TODO:
 * convert input to a standard Unicode Normalization form (NFD?)
@@ -41,7 +47,8 @@ romanized according to IAST(
 Usable as a python package:
 
     from ur2ud import ur2ud
-    devanagari = ur2ud(roman, iast=True)
+    ur2ud = Transliterator(iast=True)
+    devanagari = ur2ud.transliterate(roman)
 
 or from the command line:
 
@@ -53,4 +60,3 @@ or from the command line:
       --version   show program's version number and exit
       -h, --help  show this help message and exit
       -i, --iast  Expect IAST input (instead of ISO15919)
-
