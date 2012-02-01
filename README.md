@@ -46,7 +46,7 @@ differences are that IAST uses 'ṃ' instead of 'ṁ' for the _anusvāra_, and
 
 Usable as a python package:
 
-    from ur2ud import ur2ud
+    from ur2ud import Transliterator
     ur2ud = Transliterator(iast=True)
     devanagari = ur2ud.transliterate(roman)
 
