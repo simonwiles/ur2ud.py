@@ -18,11 +18,11 @@ in recognition of that fact.
 With valid input, ur2ud is functionally equivalent to John Smith's
 `ur2ud -s`, and as with the original implementation:
 
-  >  The program does not check that input is valid in terms of ISO 15919,
+  >  The program does not check that input is valid in terms of ISO15919,
   >  or that UTF-8 input is syntactically valid. Invalid input will cause
   >  unpredictable results. Accented (Vedic) Roman input using acute and
   >  grave accents over vowels will produce correct but unaccented
-  >  Devanagari output (the underscore notation for anudatta vowels is
+  >  Devanagari output (the underscore notation for _anudatta_ vowels is
   >  not currently supported, since it is not clear what its Unicode
   >  representation should be).
 
@@ -33,7 +33,7 @@ of the opinion that this is preferable.
 #### ADDITIONAL FUNCTIONALITY:
 
 The program accepts a parameter (`iast`) which instructs it to expect input
-romanized according to IAST( [International Alphabet of Sanskrit
+romanized according to IAST ([International Alphabet of Sanskrit
 Transliteration](http://en.wikipedia.org/wiki/IAST)) instead of
 [ISO15919](http://en.wikipedia.org/wiki/ISO_15919).  The most important
 differences are that IAST uses 'ṃ' instead of 'ṁ' for the _anusvāra_, and
